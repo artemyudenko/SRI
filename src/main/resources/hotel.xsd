@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.ayudenko.com/soap"
+           targetNamespace="http://www.ayudenko.com/soap" elementFormDefault="qualified">
+
+    <xs:element name="bookRoomRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="person" type="tns:person"/>
+                <xs:element name="roomType" type="tns:type"/>
+                <xs:element name="from" type="xs:dateTime"/>
+                <xs:element name="to" type="xs:dateTime"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="bookRoomResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="reservationNumber" type="xs:int"/>
+                <xs:element name="room" type="tns:room"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="checkInRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="person" type="tns:person"/>
+                <xs:element name="reservationNumber" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="checkInResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="tns:status"/>
+                <xs:element name="reason" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cancelReservationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="person" type="tns:person"/>
+                <xs:element name="reservationNumber" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="cancelReservationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="status" type="tns:status"/>
+                <xs:element name="reason" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:complexType name="person">
+        <xs:sequence>
+            <xs:element name="first_name" type="xs:string"/>
+            <xs:element name="second_name" type="xs:string"/>
+            <xs:element name="birthdate" type="xs:dateTime"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="room">
+        <xs:sequence>
+            <xs:element name="number" type="xs:int"/>
+            <xs:element name="type" type="tns:type"/>
+            <xs:element name="cost" type="xs:double"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="type">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SINGLE"/>
+            <xs:enumeration value="DOUBLE"/>
+            <xs:enumeration value="FOUR"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="status">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="SUCCESS"/>
+            <xs:enumeration value="FAIL"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
